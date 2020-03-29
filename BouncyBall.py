@@ -5,7 +5,7 @@ import random
 ## Set globals
 WIDTH, HEIGHT = 600, 400 ## Set screen dimensions
 SIZE = 2 ## Seems to be mult by 10ish
-SPEED = 2
+SPEED = 10
 ## Screen boundaries
 NBOUND = (HEIGHT / 2) - SIZE * 10
 EBOUND = WIDTH / 2 - SIZE * 15
@@ -18,6 +18,7 @@ wn = turtle.Screen()
 wn.setup(WIDTH, HEIGHT)
 wn.bgcolor("purple")
 wn.title("Bouncing Ball Simulator")
+wn.tracer(0) # Stops the screen from updating
 
 ## Create ball
 ball = turtle.Turtle()
@@ -29,6 +30,7 @@ ball.dy = random.randrange(-SPEED, SPEED) ## Setting a variable for delta y (wil
 ball.dx = random.randrange(-SPEED, SPEED)
 
 while True:
+    wn.update()
     ball.sety(ball.ycor() + ball.dy) ## Make the ball move!!
     ball.setx(ball.xcor() + ball.dx) ## Make the ball move!!
 
