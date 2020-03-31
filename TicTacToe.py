@@ -1,4 +1,5 @@
 import os
+import random
 os.system("clear")
 
 class Board():
@@ -6,6 +7,7 @@ class Board():
         self.cells = [] # Make a list of 10? cells to hold data of what is in each cell
         for i in range(10):
             self.cells.append(" ") # Initialize cells with for in loop
+
 
     def display(self):
         print (" %s | %s | %s " %(self.cells[1], self.cells[2], self.cells[3]))
@@ -20,23 +22,14 @@ class Board():
 
     def is_winner(self, player):
         # 8 ways to win
-        if self.cells[1] == player and self.cells[2] == player and self.cells[3] == player:
-            return True
-        if self.cells[4] == player and self.cells[5] == player and self.cells[6] == player:
-            return True
-        if self.cells[7] == player and self.cells[8] == player and self.cells[9] == player:
-            return True
-        if self.cells[1] == player and self.cells[4] == player and self.cells[7] == player:
-            return True
-        if self.cells[2] == player and self.cells[5] == player and self.cells[8] == player:
-            return True
-        if self.cells[3] == player and self.cells[6] == player and self.cells[9] == player:
-            return True
-        if self.cells[1] == player and self.cells[5] == player and self.cells[9] == player:
-            return True
-        if self.cells[3] == player and self.cells[5] == player and self.cells[7] == player:
-            return True
-
+        # List of lists
+        for combo in [[1,2,3],[4,5,6],[7,8,9],[1,4,7],[2,5,8],[3,6,9],[1,5,9,],[3,5,7]]:
+            result = True
+            for cell_no in combo:
+                if self.cells[cell_no] != player:
+                    result = False
+            if result == True:
+                return True
         return False
 
     def reset(self):
@@ -69,10 +62,14 @@ class Board():
 
             # Random choice
         else:
-            for i in range(1, 10):
-                if self.cells[i] == " ":
-                    self.update_cell(i, player)
-                    break
+            flag = True
+            rand = random.randrange(1, 10)
+            while flag:
+                if self.cells[rand] == " ":
+                    self.update_cell(rand, player)
+                    flag = False
+                else:
+                    rand = random.randrange(1, 10)
 
 # Main Program
 # Initialize
