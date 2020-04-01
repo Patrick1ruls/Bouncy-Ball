@@ -45,14 +45,21 @@ def move_left():
     x -= PLAYER_SPEED
     player.setx(x)
 
+def move_right():
+    x = player.xcor()
+    x += PLAYER_SPEED
+    player.setx(x)
+
 # Create keyboard bindings
-turtle.listen()
+def set_movement():
+    turtle.listen()
+    turtle.onkey(move_left, "Left") # When pressing left arrow, uses move_left function
+    turtle.onkey(move_right, "Right") # When pressing left arrow, uses move_left function
 
 def main():
     draw_border(X_POS, Y_POS, BORDER_SIZE)
     create_player(x_start, y_start)
-    move_left()
-
+    set_movement()
 
 
 
