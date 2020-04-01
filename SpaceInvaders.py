@@ -3,6 +3,7 @@
 import turtle
 import os
 
+
 # Global variables
 X_POS = -300
 Y_POS = -300
@@ -11,6 +12,8 @@ player = turtle.Turtle() # Initialize player and make global
 x_start = 0
 y_start = -250
 PLAYER_SPEED = 15 # How fast the player will move
+enemy = turtle.Turtle() # Initialize enemy and make global
+ENEMY_SPEED = 2
 # Set up the screen
 wn = turtle.Screen()
 wn.bgcolor("black")
@@ -58,25 +61,52 @@ def move_right():
 
 # Create keyboard bindings
 def set_movement():
+
     turtle.listen()
     turtle.onkey(move_left, "Left") # When pressing left arrow, uses move_left function
     turtle.onkey(move_right, "Right") # When pressing left arrow, uses move_left function
 
-def main():
+def create_enemy(x, y):
+    enemy.color("red")
+    enemy.shape("circle")
+    enemy.penup()
+    enemy.speed(0)
+    enemy.setposition(x, y)
+
+def move_enemy():
+    # Move enemy
+    global ENEMY_SPEED
+    x = enemy.xcor()
+    x += ENEMY_SPEED
+    enemy.setx(x)
+    # Move enemy back and down
+    if enemy.xcor() > 280:
+        ENEMY_SPEED *= -1
+        y = enemy.ycor()
+        y -= 40
+        enemy.sety(y)
+    if enemy.xcor() < -280:
+        ENEMY_SPEED *= -1
+        y = enemy.ycor()
+        y -= 40
+        enemy.sety(y)
+
+# Initialize program
+def init():
     draw_border(X_POS, Y_POS, BORDER_SIZE)
     create_player(x_start, y_start)
     set_movement()
+    create_enemy(-200, 250)
+
+
+init()
+
+# Main game loop
+while True:
+    move_enemy()
 
 
 
 
-
-
-
-
-
-# Main program
-main()
 
 delay = raw_input("Press enter to finish.")
-#turtle.mainloop()
