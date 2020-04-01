@@ -7,7 +7,10 @@ import os
 X_POS = -300
 Y_POS = -300
 BORDER_SIZE = 600
-
+player = turtle.Turtle() # Initialize player and make global
+x_start = 0
+y_start = -250
+PLAYER_SPEED = 15 # How fast the player will move
 # Set up the screen
 wn = turtle.Screen()
 wn.bgcolor("black")
@@ -27,8 +30,29 @@ def draw_border(x, y, size):
         border_pen.lt(90) # Left turn
     border_pen.hideturtle()
 
+def create_player(x, y):
+    # Create player turtle
+    player.color("blue")
+    player.shape("triangle")
+    player.penup()
+    player.speed(0)
+    player.setposition(x, y)
+    player.setheading(90)
+
+# Let player left and right
+def move_left():
+    x = player.xcor()
+    x -= PLAYER_SPEED
+    player.setx(x)
+
+# Create keyboard bindings
+turtle.listen()
+
 def main():
     draw_border(X_POS, Y_POS, BORDER_SIZE)
+    create_player(x_start, y_start)
+    move_left()
+
 
 
 
