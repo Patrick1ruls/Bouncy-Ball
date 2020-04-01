@@ -43,11 +43,17 @@ def create_player(x, y):
 def move_left():
     x = player.xcor()
     x -= PLAYER_SPEED
+    # Boundary check
+    if x < -280:
+        x = -280
     player.setx(x)
 
 def move_right():
     x = player.xcor()
     x += PLAYER_SPEED
+    # Boundary check
+    if x > 280:
+        x = 280
     player.setx(x)
 
 # Create keyboard bindings
