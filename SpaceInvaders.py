@@ -86,6 +86,8 @@ def move_bullet():
         # Reset enemy
         enemy.setposition(-200, 250)
 
+
+
 # Let player left and right
 def move_left():
     x = player.xcor()
@@ -149,7 +151,7 @@ def init():
     create_player(x_start, y_start)
     create_bullet()
     set_movement()
-    create_enemy(-200, 250)
+    create_enemy(-200, -200) #250 original y
 
 
 
@@ -158,6 +160,15 @@ init()
 while True:
     move_enemy()
     move_bullet()
+
+
+    
+    # Check for a collision with player and enemy (enemy)
+    if isCollision(player, enemy):
+        player.hideturtle()
+        enemy.hideturtle()
+        print ("Game Over")
+        break # Exit game loop (Oh that's so easy and simple!)
 
 
 
