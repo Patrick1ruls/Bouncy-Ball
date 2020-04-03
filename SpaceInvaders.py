@@ -2,6 +2,7 @@
 # Set up the screen
 import turtle
 import os
+import math
 
 
 # Global variables
@@ -76,6 +77,14 @@ def move_bullet():
     if bullet.ycor() > 275:
         bullet.hideturtle()
         bullet_state = "ready"
+    # Check for a collision with bullet and enemy
+    if isCollision(bullet, enemy):
+        # Reset bullet
+        bullet.hideturtle()
+        bullet_state = "ready"
+        bullet.setposition(0, -400)
+        # Reset enemy
+        enemy.setposition(-200, 250)
 
 # Let player left and right
 def move_left():
@@ -126,6 +135,13 @@ def move_enemy():
         y = enemy.ycor()
         y -= 40
         enemy.sety(y)
+
+# Bullet enemy collision checking
+def isCollision(turtle1, turtle2):
+    # Pythagorean therom a^2 + b^2 = c^2
+    distance = math.sqrt(math.pow(turtle1.xcor()-turtle2.xcor(), 2) + math.pow(turtle1.ycor()-turtle2.ycor(), 2))
+    if distance < 15:
+        return True
 
 # Initialize program
 def init():
