@@ -151,7 +151,7 @@ def init():
     create_player(x_start, y_start)
     create_bullet()
     set_movement()
-    create_enemy(-200, -200) #250 original y
+    create_enemy(-200, 250)
 
 
 
@@ -162,7 +162,7 @@ while True:
     move_bullet()
 
 
-    
+
     # Check for a collision with player and enemy (enemy)
     if isCollision(player, enemy):
         player.hideturtle()
