@@ -38,6 +38,7 @@ class Game:
         player1.show() # Show player on screen
         player1.set_movement()
 
+
     # Main game loop
     def play(self):
         self.init()

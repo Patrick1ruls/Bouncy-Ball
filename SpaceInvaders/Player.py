@@ -1,7 +1,5 @@
 import turtle
-import os
-
-
+from Bullet import Bullet
 
 class Player:
     def __init__(self, x, y, color, shape):
@@ -11,6 +9,7 @@ class Player:
         self.color = color
         self.shape = shape
         self.PLAYER_SPEED = 15
+        self.bullet = Bullet(self.player.xcor(), self.player.ycor() + 10) # Load the ships bullet
 
     def show(self):
         # Create player turtle
