@@ -5,6 +5,10 @@ import os
 
 
 # Global variables
+# Set up the screen
+wn = turtle.Screen()
+wn.bgcolor("black")
+wn.title("Space Invaders")
 X_POS = -300
 Y_POS = -300
 BORDER_SIZE = 600
@@ -14,10 +18,9 @@ y_start = -250
 PLAYER_SPEED = 15 # How fast the player will move
 enemy = turtle.Turtle() # Initialize enemy and make global
 ENEMY_SPEED = 2
-# Set up the screen
-wn = turtle.Screen()
-wn.bgcolor("black")
-wn.title("Space Invaders")
+bullet = turtle.Turtle() # Initialize the player's bullet
+BULLET_SPEED = 20
+bullet_state = "ready" # Initialize bullet state (enum)
 
 def draw_border(x, y, size):
     # Draw boarder
@@ -42,6 +45,38 @@ def create_player(x, y):
     player.setposition(x, y)
     player.setheading(90)
 
+def create_bullet():
+    bullet.color("yellow")
+    bullet.shape("triangle")
+    bullet.penup()
+    bullet.speed(0)
+    bullet.setheading(90)
+    bullet.shapesize(0.5, 0.5)
+    bullet.hideturtle() # Hide the bullet initially
+
+def fire_bullet():
+    # Declare bullet state as a global if it needs to change
+    global bullet_state # global means the function can change this variable
+    if bullet_state == "ready":
+        bullet_state = "fire"
+        # Get player location so bullet can shoot from there
+        x = player.xcor()
+        y = player.ycor() + 20
+        bullet.setposition(x, y)
+        bullet.showturtle()
+
+def move_bullet():
+    # Define bullet states | ready - ready to fire | fire - bullet is firing
+    global bullet_state
+    if bullet_state == "fire":
+        y = bullet.ycor()
+        y += BULLET_SPEED
+        bullet.sety(y)
+    # Border check
+    if bullet.ycor() > 275:
+        bullet.hideturtle()
+        bullet_state = "ready"
+
 # Let player left and right
 def move_left():
     x = player.xcor()
@@ -65,6 +100,7 @@ def set_movement():
     turtle.listen()
     turtle.onkey(move_left, "Left") # When pressing left arrow, uses move_left function
     turtle.onkey(move_right, "Right") # When pressing left arrow, uses move_left function
+    turtle.onkey(fire_bullet, "space")
 
 def create_enemy(x, y):
     enemy.color("red")
@@ -95,16 +131,17 @@ def move_enemy():
 def init():
     draw_border(X_POS, Y_POS, BORDER_SIZE)
     create_player(x_start, y_start)
+    create_bullet()
     set_movement()
     create_enemy(-200, 250)
 
 
-init()
 
+init()
 # Main game loop
 while True:
     move_enemy()
-
+    move_bullet()
 
 
 
