@@ -141,17 +141,22 @@ def move_enemy():
         x = enemy.xcor()
         x += ENEMY_SPEED
         enemy.setx(x)
-        # Move enemy back and down
+        # Move ALL enemies back and down
         if enemy.xcor() > 280:
-            ENEMY_SPEED *= -1
-            y = enemy.ycor()
-            y -= 40
-            enemy.sety(y)
+            # Nested loop
+            for e in enemies:
+                y = e.ycor()
+                y -= 40
+                e.sety(y)
+            ENEMY_SPEED *= -1 # Only need to change once
+        # Move ALL enemies back and down
         if enemy.xcor() < -280:
-            ENEMY_SPEED *= -1
-            y = enemy.ycor()
-            y -= 40
-            enemy.sety(y)
+            # Nested loop
+            for e in enemies:
+                y = e.ycor()
+                y -= 40
+                e.sety(y)
+            ENEMY_SPEED *= -1 # Only need to change once
 
 # Bullet enemy collision checking
 def isCollision(turtle1, turtle2):
