@@ -3,7 +3,7 @@
 import turtle
 import os
 import math
-
+import random
 
 # Global variables
 # Set up the screen
@@ -17,8 +17,6 @@ player = turtle.Turtle() # Initialize player and make global
 x_start = 0
 y_start = -250
 PLAYER_SPEED = 15 # How fast the player will move
-enemy = turtle.Turtle() # Initialize enemy and make global
-ENEMY_SPEED = 2
 bullet = turtle.Turtle() # Initialize the player's bullet
 BULLET_SPEED = 20
 bullet_state = "ready" # Initialize bullet state (enum)
@@ -77,16 +75,17 @@ def move_bullet():
     if bullet.ycor() > 275:
         bullet.hideturtle()
         bullet_state = "ready"
-    # Check for a collision with bullet and enemy
-    if isCollision(bullet, enemy):
-        # Reset bullet
-        bullet.hideturtle()
-        bullet_state = "ready"
-        bullet.setposition(0, -400)
-        # Reset enemy
-        enemy.setposition(-200, 250)
-
-
+    for enemy in enemies:
+        # Check for a collision with bullet and enemy
+        if isCollision(bullet, enemy):
+            # Reset bullet
+            bullet.hideturtle()
+            bullet_state = "ready"
+            bullet.setposition(0, -400)
+            # Reset enemy
+            x = random.randint(-200, 200)
+            y = random.randint(100, 250)
+            enemy.setposition(x, y)
 
 # Let player left and right
 def move_left():
@@ -113,30 +112,46 @@ def set_movement():
     turtle.onkey(move_right, "Right") # When pressing left arrow, uses move_left function
     turtle.onkey(fire_bullet, "space")
 
-def create_enemy(x, y):
-    enemy.color("red")
-    enemy.shape("circle")
-    enemy.penup()
-    enemy.speed(0)
-    enemy.setposition(x, y)
+def create_enemy():
+    global ENEMY_SPEED
+    ENEMY_SPEED = 2
+    global number_of_enemies
+    number_of_enemies = 5
+    global enemy # Initialize enemy and make global
+    #enemy = turtle.Turtle()
+    global enemies
+    enemies = [] # Create empty list of numbers
+    # Add enemies to list
+    for i in range(number_of_enemies):
+        enemies.append(turtle.Turtle())
+    # Set enemy attributes
+    for enemy in enemies:
+        enemy.color("red")
+        enemy.shape("circle")
+        enemy.penup()
+        enemy.speed(0)
+        x = random.randint(-200, 200)
+        y = random.randint(100, 250)
+        enemy.setposition(x, y)
 
 def move_enemy():
-    # Move enemy
     global ENEMY_SPEED
-    x = enemy.xcor()
-    x += ENEMY_SPEED
-    enemy.setx(x)
-    # Move enemy back and down
-    if enemy.xcor() > 280:
-        ENEMY_SPEED *= -1
-        y = enemy.ycor()
-        y -= 40
-        enemy.sety(y)
-    if enemy.xcor() < -280:
-        ENEMY_SPEED *= -1
-        y = enemy.ycor()
-        y -= 40
-        enemy.sety(y)
+    for enemy in enemies:
+        # Move enemy
+        x = enemy.xcor()
+        x += ENEMY_SPEED
+        enemy.setx(x)
+        # Move enemy back and down
+        if enemy.xcor() > 280:
+            ENEMY_SPEED *= -1
+            y = enemy.ycor()
+            y -= 40
+            enemy.sety(y)
+        if enemy.xcor() < -280:
+            ENEMY_SPEED *= -1
+            y = enemy.ycor()
+            y -= 40
+            enemy.sety(y)
 
 # Bullet enemy collision checking
 def isCollision(turtle1, turtle2):
@@ -151,7 +166,7 @@ def init():
     create_player(x_start, y_start)
     create_bullet()
     set_movement()
-    create_enemy(-200, 250)
+    create_enemy()
 
 
 
@@ -163,12 +178,13 @@ while True:
 
 
 
-    # Check for a collision with player and enemy (enemy)
-    if isCollision(player, enemy):
-        player.hideturtle()
-        enemy.hideturtle()
-        print ("Game Over")
-        break # Exit game loop (Oh that's so easy and simple!)
+    for enemy in enemies:
+        # Check for a collision with player and enemy (enemy)
+        if isCollision(player, enemy):
+            player.hideturtle()
+            enemy.hideturtle()
+            print ("Game Over")
+            break # Exit game loop (Oh that's so easy and simple!)
 
 
 
