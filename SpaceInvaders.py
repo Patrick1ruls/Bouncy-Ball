@@ -21,6 +21,7 @@ bullet = turtle.Turtle() # Initialize the player's bullet
 BULLET_SPEED = 20
 bullet_state = "ready" # Initialize bullet state (enum)
 score = 0 # Initialize score
+score_pen = turtle.Turtle()
 
 def draw_border(x, y, size):
     # Draw boarder
@@ -87,6 +88,11 @@ def move_bullet():
             x = random.randint(-200, 200)
             y = random.randint(100, 250)
             enemy.setposition(x, y)
+            # Update score
+            global score
+            score += 10
+            update_score(score_pen, score)
+
 
 # Let player left and right
 def move_left():
@@ -167,17 +173,19 @@ def isCollision(turtle1, turtle2):
         return True
 
 # Handle scoring
-def draw_score():
-    global score
+def init_score(turtle):
     # Draw the score
-    score_pen = turtle.Turtle()
-    score_pen.speed(0)
-    score_pen.color("white")
-    score_pen.penup()
-    score_pen.setposition(-290,280)
+    turtle.speed(0)
+    turtle.color("white")
+    turtle.penup()
+    turtle.setposition(-290,280)
     score_string = "Score: %s" %score
-    score_pen.write(score_string, False, align = "left", font = ("Arial", 14, "normal"))
-    score_pen.hideturtle()
+    turtle.write(score_string, False, align = "left", font = ("Arial", 14, "normal"))
+    turtle.hideturtle()
+
+def update_score(turtle, score):
+    score_string = "Score: %s" %score
+    turtle.write(score_string, False, align = "left", font = ("Arial", 14, "normal"))
 
 
 # Initialize program
@@ -187,7 +195,7 @@ def init():
     create_bullet()
     set_movement()
     create_enemy()
-    draw_score()
+    init_score(score_pen)
 
 
 
