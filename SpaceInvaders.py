@@ -20,6 +20,7 @@ PLAYER_SPEED = 15 # How fast the player will move
 bullet = turtle.Turtle() # Initialize the player's bullet
 BULLET_SPEED = 20
 bullet_state = "ready" # Initialize bullet state (enum)
+score = 0 # Initialize score
 
 def draw_border(x, y, size):
     # Draw boarder
@@ -165,6 +166,20 @@ def isCollision(turtle1, turtle2):
     if distance < 15:
         return True
 
+# Handle scoring
+def draw_score():
+    global score
+    # Draw the score
+    score_pen = turtle.Turtle()
+    score_pen.speed(0)
+    score_pen.color("white")
+    score_pen.penup()
+    score_pen.setposition(-290,280)
+    score_string = "Score: %s" %score
+    score_pen.write(score_string, False, align = "left", font = ("Arial", 14, "normal"))
+    score_pen.hideturtle()
+
+
 # Initialize program
 def init():
     draw_border(X_POS, Y_POS, BORDER_SIZE)
@@ -172,11 +187,12 @@ def init():
     create_bullet()
     set_movement()
     create_enemy()
+    draw_score()
 
 
 
-init()
 # Main game loop
+init()
 while True:
     move_enemy()
     move_bullet()
