@@ -184,6 +184,7 @@ def init_score(turtle):
     turtle.hideturtle()
 
 def update_score(turtle, score):
+    score_pen.clear()
     score_string = "Score: %s" %score
     turtle.write(score_string, False, align = "left", font = ("Arial", 14, "normal"))
 
