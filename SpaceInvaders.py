@@ -12,7 +12,7 @@ wn.bgcolor("black")
 wn.title("Space Invaders")
 #wn.bgpic("space_invaders_background.gif") # Image must be in same folder as code (Not ready yet)
 # Register player and enemy gifs
-turtle.register_shape("Invader.gif") # Enemy image
+turtle.register_shape("tutorial_invader.gif") # Enemy image
 #turtle.register_shape("Player.gif") # Player image (Not ready yet)
 X_POS = -300
 Y_POS = -300
@@ -137,7 +137,7 @@ def create_enemy():
     # Set enemy attributes
     for enemy in enemies:
         enemy.color("red")
-        enemy.shape("Invader.gif")
+        enemy.shape("tutorial_invader.gif")
         enemy.penup()
         enemy.speed(0)
         x = random.randint(-200, 200)
