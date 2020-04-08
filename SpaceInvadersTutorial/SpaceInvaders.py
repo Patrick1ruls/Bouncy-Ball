@@ -12,8 +12,8 @@ wn.bgcolor("black")
 wn.title("Space Invaders")
 wn.bgpic("space_invaders_background.gif") # Image must be in same folder as code (Not ready yet)
 # Register player and enemy gifs
-turtle.register_shape("tutorial_invader.gif") # Enemy image
-turtle.register_shape("/Users/patrickvermillion/Documents/GitHub/Bouncy-Ball/SpaceInvadersTutorial/player.gif") # Player image (Not ready yet)
+turtle.register_shape("invader.gif") # Enemy image
+turtle.register_shape("player.gif") # Player image (Not ready yet)
 X_POS = -300
 Y_POS = -300
 BORDER_SIZE = 600
@@ -47,7 +47,7 @@ def draw_border(x, y, size):
 def create_player(x, y):
     # Create player turtle
     player.color("blue")
-    player.shape("/Users/patrickvermillion/Documents/GitHub/Bouncy-Ball/SpaceInvadersTutorial/player.gif")
+    player.shape("player.gif")
     player.penup()
     player.speed(0)
     player.setposition(x, y)
@@ -66,6 +66,7 @@ def fire_bullet():
     # Declare bullet state as a global if it needs to change
     global bullet_state # global means the function can change this variable
     if bullet_state == "ready":
+        os.system("afplay laser.wav&") # Mac exclusive sound playing feature
         bullet_state = "fire"
         # Get player location so bullet can shoot from there
         x = player.xcor()
@@ -87,6 +88,7 @@ def move_bullet():
     for enemy in enemies:
         # Check for a collision with bullet and enemy
         if isCollision(bullet, enemy):
+            os.system("afplay explosion.wav&")
             # Reset bullet
             bullet.hideturtle()
             bullet_state = "ready"
@@ -135,7 +137,7 @@ def create_enemy():
     # Set enemy attributes
     for enemy in enemies:
         enemy.color("red")
-        enemy.shape("tutorial_invader.gif")
+        enemy.shape("invader.gif")
         enemy.penup()
         enemy.speed(0)
         x = random.randint(-200, 200)
