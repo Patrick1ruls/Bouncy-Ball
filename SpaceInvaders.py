@@ -10,14 +10,17 @@ import random
 wn = turtle.Screen()
 wn.bgcolor("black")
 wn.title("Space Invaders")
-#wn.bgpic("space_invaders_background.gif") # Image must be in same folder as code (Not ready yet)
+wn.bgpic("space_invaders_background.gif") # Image must be in same folder as code (Not ready yet)
 # Register player and enemy gifs
 turtle.register_shape("tutorial_invader.gif") # Enemy image
-#turtle.register_shape("Player.gif") # Player image (Not ready yet)
+turtle.register_shape("/Users/patrickvermillion/Documents/GitHub/Bouncy-Ball/SpaceInvadersTutorial/player.gif") # Player image (Not ready yet)
 X_POS = -300
 Y_POS = -300
 BORDER_SIZE = 600
 player = turtle.Turtle() # Initialize player and make global
+ENEMY_SPEED = 2
+number_of_enemies = 5
+enemies = [] # Initialize enemy ships and make global
 x_start = 0
 y_start = -250
 PLAYER_SPEED = 15 # How fast the player will move
@@ -44,7 +47,7 @@ def draw_border(x, y, size):
 def create_player(x, y):
     # Create player turtle
     player.color("blue")
-    player.shape("triangle")
+    player.shape("/Users/patrickvermillion/Documents/GitHub/Bouncy-Ball/SpaceInvadersTutorial/player.gif")
     player.penup()
     player.speed(0)
     player.setposition(x, y)
@@ -124,13 +127,8 @@ def set_movement():
 
 def create_enemy():
     global ENEMY_SPEED
-    ENEMY_SPEED = 2
     global number_of_enemies
-    number_of_enemies = 5
-    global enemy # Initialize enemy and make global
-    #enemy = turtle.Turtle()
     global enemies
-    enemies = [] # Create empty list of numbers
     # Add enemies to list
     for i in range(number_of_enemies):
         enemies.append(turtle.Turtle())

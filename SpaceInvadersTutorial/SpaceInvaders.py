@@ -10,10 +10,17 @@ import random
 wn = turtle.Screen()
 wn.bgcolor("black")
 wn.title("Space Invaders")
+wn.bgpic("space_invaders_background.gif") # Image must be in same folder as code (Not ready yet)
+# Register player and enemy gifs
+turtle.register_shape("tutorial_invader.gif") # Enemy image
+turtle.register_shape("/Users/patrickvermillion/Documents/GitHub/Bouncy-Ball/SpaceInvadersTutorial/player.gif") # Player image (Not ready yet)
 X_POS = -300
 Y_POS = -300
 BORDER_SIZE = 600
 player = turtle.Turtle() # Initialize player and make global
+ENEMY_SPEED = 2
+number_of_enemies = 5
+enemies = [] # Initialize enemy ships and make global
 x_start = 0
 y_start = -250
 PLAYER_SPEED = 15 # How fast the player will move
@@ -40,7 +47,7 @@ def draw_border(x, y, size):
 def create_player(x, y):
     # Create player turtle
     player.color("blue")
-    player.shape("triangle")
+    player.shape("/Users/patrickvermillion/Documents/GitHub/Bouncy-Ball/SpaceInvadersTutorial/player.gif")
     player.penup()
     player.speed(0)
     player.setposition(x, y)
@@ -93,7 +100,6 @@ def move_bullet():
             score += 10
             update_score(score_pen, score)
 
-
 # Let player left and right
 def move_left():
     x = player.xcor()
@@ -121,20 +127,15 @@ def set_movement():
 
 def create_enemy():
     global ENEMY_SPEED
-    ENEMY_SPEED = 2
     global number_of_enemies
-    number_of_enemies = 5
-    global enemy # Initialize enemy and make global
-    #enemy = turtle.Turtle()
     global enemies
-    enemies = [] # Create empty list of numbers
     # Add enemies to list
     for i in range(number_of_enemies):
         enemies.append(turtle.Turtle())
     # Set enemy attributes
     for enemy in enemies:
         enemy.color("red")
-        enemy.shape("circle")
+        enemy.shape("tutorial_invader.gif")
         enemy.penup()
         enemy.speed(0)
         x = random.randint(-200, 200)
@@ -174,6 +175,7 @@ def isCollision(turtle1, turtle2):
 
 # Handle scoring
 def init_score(turtle):
+
     # Draw the score
     turtle.speed(0)
     turtle.color("white")
@@ -187,7 +189,6 @@ def update_score(turtle, score):
     score_pen.clear()
     score_string = "Score: %s" %score
     turtle.write(score_string, False, align = "left", font = ("Arial", 14, "normal"))
-
 
 # Initialize program
 def init():
