@@ -2,6 +2,7 @@
 import turtle
 import os
 from Player import Player
+from Bullet import Bullet
 
 # Global variables
 X_POS = -300
@@ -34,17 +35,17 @@ class Game:
 
     # Initialize game
     def init(self):
-        player1 = Player(x_start, y_start, player_color, "triangle") # Create the player
-        player1.show() # Show player on screen
-        player1.set_movement()
+        self.player1 = Player(x_start, y_start, player_color, player_shape) # Create the player
 
+
+    def move_bullet(self):
+        self.player1.bullet.move()
 
     # Main game loop
     def play(self):
         self.init()
         while True:
-            print("Test")
-            delay = raw_input("Press enter to finish.")
+            self.move_bullet()
 
 
 game = Game(X_POS, Y_POS, BORDER_SIZE)

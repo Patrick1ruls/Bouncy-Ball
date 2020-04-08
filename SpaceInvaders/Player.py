@@ -9,7 +9,9 @@ class Player:
         self.color = color
         self.shape = shape
         self.PLAYER_SPEED = 15
-        self.bullet = Bullet(self.player.xcor(), self.player.ycor() + 10) # Load the ships bullet
+        self.bullet = Bullet(self.x, (self.y + 10)) # Load the ships bullet
+        self.show()
+        self.set_movement()
 
     def show(self):
         # Create player turtle
@@ -42,3 +44,5 @@ class Player:
         turtle.listen()
         turtle.onkey(self.move_left, "Left") # When pressing left arrow, uses move_left function
         turtle.onkey(self.move_right, "Right") # When pressing left arrow, uses move_left function
+
+    # Allow bullet movement?

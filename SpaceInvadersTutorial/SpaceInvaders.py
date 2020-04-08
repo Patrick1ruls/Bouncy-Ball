@@ -214,6 +214,7 @@ while True:
     for enemy in enemies:
         # Check for a collision with player and enemy (enemy)
         if isCollision(player, enemy):
+            os.system("afplay explosion.wav&")
             player.hideturtle()
             enemy.hideturtle()
             print ("Game Over")
