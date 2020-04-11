@@ -36,7 +36,7 @@ class Game:
     # Initialize game
     def init(self):
         self.player = Player(x_start, y_start, player_color, player_shape) # Create the player
-        self.bullet = Bullet(self.player.x, self.player.y)
+        self.bullet = Bullet()
 
     def move_bullet(self):
         self.bullet.move()
