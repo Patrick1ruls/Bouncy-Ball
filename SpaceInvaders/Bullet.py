@@ -17,13 +17,13 @@ class Bullet:
         self.bullet.shapesize(0.5, 0.5)
         #self.bullet.hideturtle() # Hide the bullet initially
         self.BULLET_SPEED = 20
-        self.bullet_state = "ready" # Initialize bullet state (enum)
+        self.bullet_state = "fired" # Initialize bullet state (enum)
         self.bullet.setposition(x, y)
         #self.move() # Set the bullets movement
 
     def move(self):
         # Define bullet states | ready - ready to fire | fire - bullet is firing
-        if self.bullet_state == "ready":
+        if self.bullet_state == "fired":
             self.y = self.bullet.ycor()
             self.y += self.BULLET_SPEED
             self.bullet.sety(self.y)

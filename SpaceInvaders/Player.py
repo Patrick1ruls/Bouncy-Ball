@@ -9,7 +9,6 @@ class Player:
         self.color = color
         self.shape = shape
         self.PLAYER_SPEED = 15
-        self.bullet = Bullet(self.x, (self.y + 10)) # Load the ships bullet
         self.show()
         self.set_movement()
 
