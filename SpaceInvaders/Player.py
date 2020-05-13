@@ -1,16 +1,15 @@
 import turtle
-from Bullet import Bullet
 
-class Player:
+class Player(turtle.Turtle):
     def __init__(self, x, y, color, shape):
-        self.player = turtle.Turtle() # Initialize player and make global
+        self.player = turtle.Turtle()
         self.x = x
         self.y = y
         self.color = color
         self.shape = shape
         self.PLAYER_SPEED = 15
         self.show()
-        self.set_movement()
+        #self.set_movement()
 
     def show(self):
         # Create player turtle
@@ -38,10 +37,8 @@ class Player:
             self.x = 280
         self.player.setx(self.x)
 
-    # Create keyboard bindings
-    def set_movement(self):
-        turtle.listen()
-        turtle.onkey(self.move_left, "Left") # When pressing left arrow, uses move_left function
-        turtle.onkey(self.move_right, "Right") # When pressing left arrow, uses move_left function
+    def get_x(self):
+        return self.x
 
-    # Allow bullet movement?
+    def get_y(self):
+        return self.y

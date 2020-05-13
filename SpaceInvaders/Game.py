@@ -37,15 +37,20 @@ class Game:
     def init(self):
         self.player = Player(x_start, y_start, player_color, player_shape) # Create the player
         self.bullet = Bullet()
+        self.set_movement()
 
-    def move_bullet(self):
-        self.bullet.move()
+    # Create keyboard bindings
+    def set_movement(self):
+        turtle.listen()
+        turtle.onkey(self.player.move_left, "Left") # When pressing left arrow, uses move_left function
+        turtle.onkey(self.player.move_right, "Right") # When pressing left arrow, uses move_left function
+        turtle.onkey(self.bullet.fire, "space")
 
     # Main game loop
     def play(self):
         self.init()
         while True:
-            self.move_bullet()
+            self.bullet.move()
 
 
 game = Game(X_POS, Y_POS, BORDER_SIZE)
